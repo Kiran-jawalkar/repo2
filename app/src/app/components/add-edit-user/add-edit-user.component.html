@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row">
+    <div class="col-md-4 offset-md-4">
+    <form [formGroup]="registerForm" (ngSubmit)="register();">
+    <div class="formbox">
+     
+    <div class="form-group">
+    <input type="text" formControlName="fullName" class="form-control" placeholder="Full Name" [ngClass]="{ 'is-invalid': submitted && fval.fullName.errors }"/>
+    <div *ngIf="submitted && fval.fullName.errors" class="invalid-feedback">
+    <div *ngIf="fval.fullName.errors.required">
+        Required
+    </div>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <input type="text" numbersOnly formControlName="phone" class="form-control" placeholder="Phone No." maxlength="10" minlength="10" [ngClass]="{ 'is-invalid': submitted && fval.phone.invalid }" required />
+        <div *ngIf="submitted && fval.phone.errors" class="invalid-feedback">
+        <div *ngIf="fval.phone.errors.required">Phone is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+    <input type="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" />
+    <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+    <div *ngIf="fval.email.errors.required">Email is required</div>
+    <div *ngIf="fval.email.errors.email">Please enter correct email address</div>
+    </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <p class="error" *ngIf="this.registerForm.controls['locations'].errors?.required">
+        Please select Location
+       </p>
+      <div *ngFor="let data of locations; let i=index">
+        <label>
+          <input type="checkbox" [value]="data.value" (change)="onCheckboxChange($event)" />
+          {{data.name}}
+        </label>
+      </div>    
+    </div>
+
+    <div class="form-group">
+        <label>Gender</label>
+        <select formControlName="gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.gender.errors }">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>           
+        </select>
+        <div *ngIf="submitted && fval.gender.errors" class="invalid-feedback">
+            <div *ngIf="fval.gender.errors.required">Required</div>
+        </div>
+    </div>
+
+   
+
+    <div class="form-group">
+    <button type="submit" class="btn btn-primary signin" *ngIf="edituser==false">Register</button>
+    <button type="submit" class="btn btn-primary signin" *ngIf="edituser==true">Update User</button>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <button (click)="showGrid()" class="adduserButton">Back</button>
+     
